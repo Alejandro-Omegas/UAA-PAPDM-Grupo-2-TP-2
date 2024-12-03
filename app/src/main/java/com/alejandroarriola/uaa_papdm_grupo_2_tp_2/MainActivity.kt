@@ -6,11 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.StockApp
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.theme.UAAPAPDMGrupo2TP2Theme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +22,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             UAAPAPDMGrupo2TP2Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    StockApp()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    UAAPAPDMGrupo2TP2Theme {
-        Greeting("Android")
     }
 }
