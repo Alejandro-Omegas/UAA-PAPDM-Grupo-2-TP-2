@@ -3,4 +3,7 @@
     <string name="ver_stock">Ver Stock</string>
     <string name="exits_the_app">Exits the app</string>
     <string name="about">About</string>
+    <string name="desc_retorna_home">Retorna a la pantalla principal</string>
+    <string name="lista_de_stock">Lista de Stock</string>
+    <string name="desc_agregar_producto">Abre pantalla para agregar producto</string>
 </resources>
