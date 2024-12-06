@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.alejandroarriola.uaa_papdm_grupo_2_tp_2"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.alejandroarriola.uaa_papdm_grupo_2_tp_2"

@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">UAA-PAPDM-Grupo-2-TP-2</string>
+    <string name="app_name">StockApp</string> <!--original name: UAA-PAPDM-Grupo-2-TP-2-->
+    <string name="ver_stock">Ver Stock</string>
+    <string name="exits_the_app">Exits the app</string>
+    <string name="about">About</string>
 </resources>
