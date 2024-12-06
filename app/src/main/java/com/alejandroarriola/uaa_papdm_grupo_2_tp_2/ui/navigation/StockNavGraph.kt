@@ -9,8 +9,11 @@ import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.home.HomeDestino
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.home.HomeSreen
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.misc.AboutDestino
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.misc.AboutScreen
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.AgregarProductoDestino
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.AgregarProductoScreen
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.ListaStock
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.ListaStockDestino
+
 
 @Composable
 fun StockNavGraph(
@@ -36,7 +39,14 @@ fun StockNavGraph(
 
         composable(route = ListaStockDestino.ruta) {
             ListaStock(
-                navAgregarProducto = { navController.popBackStack() } //TODO: reemplazar con funcion para abrir pantalla de Agregar producto
+                navAgregarProducto = { navController.navigate(AgregarProductoDestino.ruta) },
+                navUp = { navController.navigateUp() }
+            )
+        }
+
+        composable(route = AgregarProductoDestino.ruta) {
+            AgregarProductoScreen(
+                navUp = { navController.navigateUp() }
             )
         }
     }

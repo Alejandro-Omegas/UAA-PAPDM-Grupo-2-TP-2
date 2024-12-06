@@ -6,4 +6,5 @@
     <string name="desc_retorna_home">Retorna a la pantalla principal</string>
     <string name="lista_de_stock">Lista de Stock</string>
     <string name="desc_agregar_producto">Abre pantalla para agregar producto</string>
+    <string name="agregar_producto">Agregar Producto\n</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
 
+
 object ListaStockDestino: NavDestino {
     override val ruta: String
         get() = "lista_stock"
@@ -24,14 +26,23 @@ object ListaStockDestino: NavDestino {
         get() = R.string.lista_de_stock
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ListaStock(
     modifier: Modifier = Modifier,
     navAgregarProducto: () -> Unit = {},
+    navUp: () -> Unit
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopBarStock(
+                titulo = stringResource(ListaStockDestino.titulo),
+                canNavUp = true,
+                navUp = navUp,
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navAgregarProducto() },
