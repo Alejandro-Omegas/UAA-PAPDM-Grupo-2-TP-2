@@ -47,6 +47,7 @@ object ListaStockDestino: NavDestino {
 fun ListaStock(
     modifier: Modifier = Modifier,
     navAgregarProducto: () -> Unit = {},
+    navProductoDetalle: (Int) -> Unit = {},
     navUp: () -> Unit
 ) {
     Scaffold(
@@ -98,6 +99,7 @@ fun ListaStock(
             } else {
                 ListaProductos(
                     listaProductos = listaProductos,
+                    onProductoClic = { navProductoDetalle(it.id) },
                     modifier = Modifier
                         .padding(horizontal = dimensionResource(id = R.dimen.padding_small)),
                     contentPadding = PaddingValues(0.dp)
@@ -111,7 +113,7 @@ fun ListaStock(
 @Composable
 fun ListaProductos(
     modifier: Modifier = Modifier,
-    //onProductoClic: (Producto) -> Unit,
+    onProductoClic: (Producto) -> Unit,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     listaProductos: List<Producto> = emptyList()
 ) {
@@ -124,7 +126,7 @@ fun ListaProductos(
                 producto = item,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable { /*onProductoClic(item)*/ }
+                    .clickable { onProductoClic(item) }
             )
         }
     }
