@@ -56,7 +56,8 @@ fun AgregarProductoScreen(
     ) { innerPadding ->
         Column(
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
-            modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+            modifier = Modifier
+                .padding(dimensionResource(id = R.dimen.padding_medium))
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
                     end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
