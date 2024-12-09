@@ -14,6 +14,8 @@ import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.misc.AboutScreen
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.AgregarProductoDestino
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.AgregarProductoScreen
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.DetalleProductoScreen
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.EditarProductoDestino
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.EditarProductoScreen
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.ListaStock
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.ListaStockDestino
 
@@ -61,6 +63,17 @@ fun StockNavGraph(
             })
         ) {
             DetalleProductoScreen(
+                navUp = { navController.navigateUp() }
+            )
+        }
+
+        composable(
+            route = EditarProductoDestino.rutaConArgs,
+            arguments = listOf(navArgument(EditarProductoDestino.idProductoArg) {
+                type = NavType.IntType
+            })
+        ) {
+            EditarProductoScreen(
                 navUp = { navController.navigateUp() }
             )
         }

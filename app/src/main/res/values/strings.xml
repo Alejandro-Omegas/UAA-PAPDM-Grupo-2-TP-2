@@ -11,4 +11,5 @@
     <string name="precio_producto">$ %.2f</string>
     <string name="Mensaje_lista_productos_vacia">No hay productos registrados.\n\nPresione el boton con el \'+\' para agregar producto.</string>
     <string name="detalle_producto">Detalle Producto</string>
+    <string name="editar_producto">Editar Producto</string>
 </resources>

@@ -10,18 +10,29 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.AppViewModelProvider
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
 
 
@@ -36,7 +47,8 @@ object AgregarProductoDestino: NavDestino {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AgregarProductoScreen(
-    viewModel: ProductoViewModel,
+    modifier: Modifier = Modifier,
+    viewModel: AgregarProductoViewModel = viewModel(factory = AppViewModelProvider.Factory),
     navUp: () -> Unit = {}
 ) {
     Scaffold(
@@ -56,8 +68,7 @@ fun AgregarProductoScreen(
     ) { innerPadding ->
         Column(
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
-            modifier = Modifier
-                .padding(dimensionResource(id = R.dimen.padding_medium))
+            modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
                     end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
@@ -134,3 +145,5 @@ fun AgregarProductoScreen(
         }
     }
 }
+
+
