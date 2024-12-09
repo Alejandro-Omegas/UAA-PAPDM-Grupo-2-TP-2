@@ -126,7 +126,7 @@ fun AgregarProductoScreen(
 
             // boton para agregar el producto
             Button(
-                onClick = { viewModel.agregarProducto() },
+                onClick = { viewModel.agregarProducto() }, // lo del viewmodel 
                 modifier = Modifier.align(Alignment.End)
             ) {
                 Text("Agregar")
