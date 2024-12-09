@@ -66,16 +66,68 @@ fun AgregarProductoScreen(
                 .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
         ) {
-            Row {
-                Text("campo")
-                TextField(label = {
-                    Text("atributo") },
-                    value = "",
-                    onValueChange = { }
+           // para el nombre
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp), // espacio entre los elementos
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Nombre:", modifier = Modifier.weight(1f)) // tamaño del texto
+                TextField(
+                    value = viewModel.nombre,
+                    onValueChange = { viewModel.nombre = it },
+                    label = { Text("Ingrese el nombre del producto") },
+                    modifier = Modifier.weight(2f) // controla el tamaño del campo de texto
                 )
             }
+
+            // para el precio
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Precio:", modifier = Modifier.weight(1f))
+                TextField(
+                    value = viewModel.precio,
+                    onValueChange = { viewModel.precio = it },
+                    label = { Text("Ingrese el precio del producto") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.weight(2f)
+                )
+            }
+
+            // para la cantidad
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Cantidad:", modifier = Modifier.weight(1f))
+                TextField(
+                    value = viewModel.cantidad,
+                    onValueChange = { viewModel.cantidad = it },
+                    label = { Text("Ingrese la cantidad en stock") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.weight(2f)
+                )
+            }
+
+            // para la descripcion
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Descripción:", modifier = Modifier.weight(1f))
+                TextField(
+                    value = viewModel.descripcion,
+                    onValueChange = { viewModel.descripcion = it },
+                    label = { Text("Ingrese una descripción (opcional)") },
+                    modifier = Modifier.weight(2f)
+                )
+            }
+
+            // boton para agregar el producto
             Button(
-                onClick = { /*TODO:invocar Agregar del VM*/}
+                onClick = { viewModel.agregarProducto() },
+                modifier = Modifier.align(Alignment.End)
             ) {
                 Text("Agregar")
             }
