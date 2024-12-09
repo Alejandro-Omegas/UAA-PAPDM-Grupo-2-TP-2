@@ -1,3 +1,4 @@
+//EVENTO AGREGAR PRODUCTO
 package com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock
 
 import android.annotation.SuppressLint
