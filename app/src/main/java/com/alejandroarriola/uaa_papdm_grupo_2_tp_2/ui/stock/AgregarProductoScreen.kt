@@ -36,16 +36,21 @@ object AgregarProductoDestino: NavDestino {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AgregarProductoScreen(
-    modifier: Modifier = Modifier,
-    navUp: () -> Unit = {},
-    //TODO: codear y agregar viewmodel
+    viewModel: ProductoViewModel,
+    navUp: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
-            TopBarStock(
-                titulo = stringResource(AgregarProductoDestino.titulo),
-                canNavUp = true,
-                navUp = navUp,
+            TopAppBar(
+                title = { Text(stringResource(AgregarProductoDestino.titulo)) }, // el titulo dinámico
+                navigationIcon = {
+                    IconButton(onClick = navUp) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Volver"
+                        )
+                    }
+                }
             )
         }
     ) { innerPadding ->
