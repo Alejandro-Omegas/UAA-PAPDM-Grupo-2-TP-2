@@ -21,8 +21,17 @@ class AgregarProductoViewModel(private val stockRepository: StockRepository) : V
         }
     }
 
-    //TODO: agregar agregarProducto funcion
-}
+   // implementa la función agregarProducto
+    fun agregarProducto() {
+        if (productoUiState.isEntryValid) {
+            val producto = Producto(
+                id = productoUiState.productoDetails.id,
+                nombre = productoUiState.productoDetails.nombre,
+                precio = productoUiState.productoDetails.precio.toDouble(),
+                cantidad = productoUiState.productoDetails.cantidad.toInt(),
+                descripcion = productoUiState.productoDetails.descripcion
+            )
+            
 
 data class ProductoUiState(
     val productoDetails: ProductoDetalles = ProductoDetalles(),
