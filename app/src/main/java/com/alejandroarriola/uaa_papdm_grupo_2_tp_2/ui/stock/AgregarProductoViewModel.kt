@@ -32,6 +32,15 @@ class AgregarProductoViewModel(private val stockRepository: StockRepository) : V
                 descripcion = productoUiState.productoDetails.descripcion
             )
             
+             // llama al repositorio para agregar el producto
+    //viewModelScope.launch para realizar la operación de base de datos, sin bloquear la UI
+            viewModelScope.launch {
+                stockRepository.agregarStock(producto)
+            }
+        }
+    }
+}
+            
 
 data class ProductoUiState(
     val productoDetails: ProductoDetalles = ProductoDetalles(),
