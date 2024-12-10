@@ -43,7 +43,9 @@ object DetalleProductoScreen: NavDestino {
 @Composable
 fun DetalleProductoScreen(
     modifier: Modifier = Modifier,
-    navUp: () -> Unit
+    navUp: () -> Unit,
+    productoId: Int, // ID del producto que estamos mostrando
+    viewModel: DetalleProductoViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     Scaffold(
         topBar = {
@@ -55,7 +57,7 @@ fun DetalleProductoScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {},
+                onClick = {}, // Aqui se puede implementar la logica de edicion gentee
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
             ) {
@@ -73,7 +75,12 @@ fun DetalleProductoScreen(
                     end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
                     top = innerPadding.calculateTopPadding()
                 )
-                .verticalScroll(rememberScrollState())
+                 .verticalScroll(rememberScrollState()),
+            productoId = productoId,
+            eliminarProducto = { id ->
+                viewModel.eliminarProducto(id) // se llama al ViewModel
+            },
+            onEliminarProducto = navUp // navega hacia atras despues de eliminar
         )
     }
 }
