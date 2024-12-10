@@ -110,7 +110,25 @@ fun CuerpoDetalleProducto(
                 onDismissRequest = { clicadoEliminar = false },
                 title = { Text("Confirmar Eliminación") },
                 text = { Text("¿Estás seguro de que deseas eliminar este producto?") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        eliminarProducto(productoId) // se llama a la función de eliminación
+                        clicadoEliminar = false
+                        onEliminarProducto() // llamamos al callback después de eliminar
+                    }) {
+                        Text("Eliminar")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { clicadoEliminar = false }) {
+                        Text("Cancelar")
+                    }
+                }
+            )
+        }
+    }
 
+    
 @Composable
 fun ProductoDetalleCard(
     modifier: Modifier = Modifier
