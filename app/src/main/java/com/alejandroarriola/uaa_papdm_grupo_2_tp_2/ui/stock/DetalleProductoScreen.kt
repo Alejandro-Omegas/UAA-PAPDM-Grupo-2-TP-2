@@ -81,7 +81,10 @@ fun DetalleProductoScreen(
 @Composable
 fun CuerpoDetalleProducto(
     modifier: Modifier = Modifier,
+    productoId: Int, // se pasa el ID del producto que se va a eliminar
     onEliminarProducto: () -> Unit = {},
+    eliminarProducto: (Int) -> Unit // funcion para realizar la eliminacion
+
 ) {
     Column(
         modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
@@ -101,11 +104,12 @@ fun CuerpoDetalleProducto(
             Text(text = "Eliminar")
         }
 
-        if(clicadoEliminar) {
-            //TODO
-        }
-    }
-}
+         // Diálogo de confirmación
+        if (clicadoEliminar) {
+            AlertDialog(
+                onDismissRequest = { clicadoEliminar = false },
+                title = { Text("Confirmar Eliminación") },
+                text = { Text("¿Estás seguro de que deseas eliminar este producto?") },
 
 @Composable
 fun ProductoDetalleCard(
