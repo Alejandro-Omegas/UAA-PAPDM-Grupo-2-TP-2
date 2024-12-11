@@ -13,10 +13,11 @@ import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.misc.AboutDestino
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.misc.AboutScreen
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.AgregarProductoDestino
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.AgregarProductoScreen
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.DetalleProductoDestino
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.DetalleProductoScreen
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.EditarProductoDestino
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.EditarProductoScreen
-import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.ListaStock
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.ListaStockScreen
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock.ListaStockDestino
 
 
@@ -43,9 +44,9 @@ fun StockNavGraph(
         }
 
         composable(route = ListaStockDestino.ruta) {
-            ListaStock(
-                navAgregarProducto = { navController.navigate(AgregarProductoDestino.ruta) },
-                navProductoDetalle = { navController.navigate("${DetalleProductoScreen.ruta}/${it}") },
+            ListaStockScreen(
+                navigateToItemEntry = { navController.navigate(AgregarProductoDestino.ruta) },
+                navigateToItemUpdate = { navController.navigate("${DetalleProductoDestino.ruta}/${it}") },
                 navUp = { navController.navigateUp() }
             )
         }
@@ -58,8 +59,8 @@ fun StockNavGraph(
         }
 
         composable(
-            route = DetalleProductoScreen.rutaConArgs,
-            arguments = listOf(navArgument(DetalleProductoScreen.idProductoArg) {
+            route = DetalleProductoDestino.rutaConArgs,
+            arguments = listOf(navArgument(DetalleProductoDestino.idProductoArg) {
                 type = NavType.IntType
             })
         ) {

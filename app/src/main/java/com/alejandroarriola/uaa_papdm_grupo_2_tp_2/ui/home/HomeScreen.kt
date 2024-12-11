@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.MainActivity
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
+import kotlin.system.exitProcess
 
 object HomeDestino: NavDestino {
     override val ruta = "home"
@@ -73,7 +74,7 @@ fun HomeSreen(
 fun exitApp() {
     val activity = MainActivity()
     activity.finish()
-    System.exit(0)
+    exitProcess(0)
 }
 
 @Preview(showBackground = true)

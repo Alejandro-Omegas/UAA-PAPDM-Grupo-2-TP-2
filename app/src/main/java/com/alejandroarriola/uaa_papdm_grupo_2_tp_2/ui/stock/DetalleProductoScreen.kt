@@ -35,7 +35,7 @@ import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.AppViewModelProvider
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
 import kotlinx.coroutines.launch
 
-object DetalleProductoScreen: NavDestino {
+object DetalleProductoDestino: NavDestino {
     override val ruta: String
         get() = "detalle_producto"
     override val titulo: Int
@@ -59,7 +59,7 @@ fun DetalleProductoScreen(
     Scaffold(
         topBar = {
             TopBarStock(
-                titulo = stringResource(DetalleProductoScreen.titulo),
+                titulo = stringResource(DetalleProductoDestino.titulo),
                 canNavUp = true,
                 navUp = navUp
             )
