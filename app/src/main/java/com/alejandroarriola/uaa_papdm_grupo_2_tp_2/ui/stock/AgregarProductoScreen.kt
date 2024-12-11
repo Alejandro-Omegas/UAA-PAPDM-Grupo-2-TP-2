@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -34,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.AppViewModelProvider
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
+import kotlinx.coroutines.CoroutineScope
 
 
 object AgregarProductoDestino: NavDestino {
@@ -49,8 +51,11 @@ object AgregarProductoDestino: NavDestino {
 fun AgregarProductoScreen(
     modifier: Modifier = Modifier,
     viewModel: AgregarProductoViewModel = viewModel(factory = AppViewModelProvider.Factory),
-    navUp: () -> Unit = {}
+    navUp: () -> Unit = {},
+    navBack: () -> Unit = {}
 ) {
+    val coroutineScope: CoroutineScope = rememberCoroutineScope()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -84,8 +89,9 @@ fun AgregarProductoScreen(
             ) {
                 Text("Nombre:", modifier = Modifier.weight(1f)) // tamaño del texto
                 TextField(
-                    value = viewModel.nombre,
-                    onValueChange = { viewModel.nombre = it },
+                    value = viewModel.productoUiState.productoDetalles.nombre,
+                    onValueChange = { viewModel.actualizarUiState(
+                        viewModel.productoUiState.productoDetalles.copy(nombre = it)) },
                     label = { Text("Ingrese el nombre del producto") },
                     modifier = Modifier.weight(2f) // controla el tamaño del campo de texto
                 )
@@ -98,8 +104,9 @@ fun AgregarProductoScreen(
             ) {
                 Text("Precio:", modifier = Modifier.weight(1f))
                 TextField(
-                    value = viewModel.precio,
-                    onValueChange = { viewModel.precio = it },
+                    value = viewModel.productoUiState.productoDetalles.precio,
+                    onValueChange = { viewModel.actualizarUiState(
+                        viewModel.productoUiState.productoDetalles.copy(precio = it)) },
                     label = { Text("Ingrese el precio del producto") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.weight(2f)
@@ -113,8 +120,9 @@ fun AgregarProductoScreen(
             ) {
                 Text("Cantidad:", modifier = Modifier.weight(1f))
                 TextField(
-                    value = viewModel.cantidad,
-                    onValueChange = { viewModel.cantidad = it },
+                    value = viewModel.productoUiState.productoDetalles.cantidad,
+                    onValueChange = { viewModel.actualizarUiState(
+                        viewModel.productoUiState.productoDetalles.copy(cantidad = it)) },
                     label = { Text("Ingrese la cantidad en stock") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.weight(2f)
@@ -128,8 +136,9 @@ fun AgregarProductoScreen(
             ) {
                 Text("Descripción:", modifier = Modifier.weight(1f))
                 TextField(
-                    value = viewModel.descripcion,
-                    onValueChange = { viewModel.descripcion = it },
+                    value = viewModel.productoUiState.productoDetalles.detalle,
+                    onValueChange = { viewModel.actualizarUiState(
+                        viewModel.productoUiState.productoDetalles.copy(detalle = it)) },
                     label = { Text("Ingrese una descripción (opcional)") },
                     modifier = Modifier.weight(2f)
                 )
@@ -137,7 +146,10 @@ fun AgregarProductoScreen(
 
             // boton para agregar el producto
             Button(
-                onClick = { viewModel.agregarProducto() }, // lo del viewmodel 
+                onClick = {
+                    viewModel.agregarProducto()
+                    navBack()
+                          }, // lo del viewmodel
                 modifier = Modifier.align(Alignment.End)
             ) {
                 Text("Agregar")

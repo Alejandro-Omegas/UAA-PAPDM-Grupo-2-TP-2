@@ -81,8 +81,8 @@ fun ListaStock(
             var listaProductos: MutableList<Producto> = mutableListOf() //TODO: lista de prueba. Reemplazar con lista del viewmodel
 
             //valorss de prueba
-            val prod1 = Producto(0, "Leche Lactolanda 1L", 150.0, 10, descripcion = null)
-            val prod2 = Producto(1, "Manzana Colegiala", 120.0, 5, descripcion = null)
+            val prod1 = Producto(0, "Leche Lactolanda 1L", 150.0, 10, detalle = null)
+            val prod2 = Producto(1, "Manzana Colegiala", 120.0, 5, detalle = null)
             listaProductos.add(prod1)
             listaProductos.add(prod2)
             //

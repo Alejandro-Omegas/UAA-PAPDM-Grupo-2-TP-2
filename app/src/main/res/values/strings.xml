@@ -12,4 +12,5 @@
     <string name="Mensaje_lista_productos_vacia">No hay productos registrados.\n\nPresione el boton con el \'+\' para agregar producto.</string>
     <string name="detalle_producto">Detalle Producto</string>
     <string name="editar_producto">Editar Producto</string>
+    <string name="desc_navEditarProducto">Abre pantalla para editar datos de producto</string>
 </resources>

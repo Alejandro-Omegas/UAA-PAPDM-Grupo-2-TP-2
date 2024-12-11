@@ -52,7 +52,8 @@ fun StockNavGraph(
 
         composable(route = AgregarProductoDestino.ruta) {
             AgregarProductoScreen(
-                navUp = { navController.navigateUp() }
+                navUp = { navController.navigateUp() },
+                navBack = { navController.popBackStack() }
             )
         }
 
@@ -63,7 +64,9 @@ fun StockNavGraph(
             })
         ) {
             DetalleProductoScreen(
-                navUp = { navController.navigateUp() }
+                navUp = { navController.navigateUp() },
+                navBack = { navController.popBackStack() },
+                navEditarProducto = { navController.navigate("${EditarProductoDestino.ruta}/${it}") }
             )
         }
 
