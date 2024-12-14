@@ -13,4 +13,10 @@
     <string name="detalle_producto">Detalle Producto</string>
     <string name="editar_producto">Editar Producto</string>
     <string name="desc_navEditarProducto">Abre pantalla para editar datos de producto</string>
+    <string name="txt_boton_agregar">Agregar</string>
+    <string name="campos_requeridos">Campos requeridos*</string>
+    <string name="precio_requerido">Precio</string>
+    <string name="nombre_producto_requerido">Producto*</string>
+    <string name="cantidad_requerida">Cantidad*</string>
+    <string name="detalle_no_requerido">Detalle</string>
 </resources>

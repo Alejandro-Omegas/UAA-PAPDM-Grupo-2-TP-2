@@ -152,23 +152,24 @@ private fun InventoryItem(
             modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
         ) {
+            Text(
+                text = item.nombre,
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Spacer(Modifier.weight(1f))
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(
-                    text = item.nombre,
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Spacer(Modifier.weight(1f))
                 Text(
                     text = item.formatedPrice(),
                     style = MaterialTheme.typography.titleMedium
                 )
+                Spacer(Modifier.weight(1f))
+                Text(
+                    text = stringResource(R.string.en_stock_formato, item.cantidad),
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
-            Text(
-                text = stringResource(R.string.en_stock_formato, item.cantidad),
-                style = MaterialTheme.typography.titleMedium
-            )
         }
     }
 }
