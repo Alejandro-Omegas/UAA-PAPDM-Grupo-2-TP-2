@@ -1,36 +1,30 @@
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
-data class ProductoUiState(
-    val nombre: String = "",
-    val precio: String = "",
-    val cantidad: String = "",
-    val detalle: String = ""
-)
 
 class EditarProductoViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(ProductoUiState())
-    val uiState: StateFlow<ProductoUiState> = _uiState
 
-    fun onNombreChange(newNombre: String) {
-        _uiState.value = _uiState.value.copy(nombre = newNombre)
-    }
 
-    fun onPrecioChange(newPrecio: String) {
-        _uiState.value = _uiState.value.copy(precio = newPrecio)
-    }
+    var producto: String = "" // Nombre del producto
+    var precio: String = ""   // Precio del producto
+    var cantidad: String = "" // Cantidad del producto
+    var detalle: String = ""  // Detalle del producto
 
-    fun onCantidadChange(newCantidad: String) {
-        _uiState.value = _uiState.value.copy(cantidad = newCantidad)
-    }
 
-    fun onDetalleChange(newDetalle: String) {
-        _uiState.value = _uiState.value.copy(detalle = newDetalle)
-    }
+    fun updateProducto() {
 
-    fun actualizarProducto(onSuccess: () -> Unit) {
 
-        onSuccess()
+
+
+        viewModelScope.launch {
+
+            println("Actualizando producto: $producto")
+            println("Precio: $precio")
+            println("Cantidad: $cantidad")
+            println("Detalle: $detalle")
+
+
+        }
     }
 }

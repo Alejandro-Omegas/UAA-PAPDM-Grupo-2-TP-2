@@ -20,4 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "UAA-PAPDM-Grupo-2-TP-2"
-include(":app")
+include(":app", ":navigation")
