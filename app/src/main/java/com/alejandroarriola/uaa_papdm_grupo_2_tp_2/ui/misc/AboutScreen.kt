@@ -77,7 +77,7 @@ fun AboutScreen(
                 .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
         ) {
-            val appVersion = stringResource(R.string.app_version)
+            val appVersion = stringResource(R.string.app_version_2)
 
             Image(
                 painter = painterResource(R.drawable.banner),
@@ -88,9 +88,18 @@ fun AboutScreen(
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
+                text = String.format(stringResource(R.string.contacto_de_soporte), appVersion),
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = String.format(stringResource(R.string.mail_de_soporte), appVersion),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
                 text = String.format(stringResource(R.string.titulo_mapa_de_pantallas)),
                 style = MaterialTheme.typography.titleMedium
             )
+
             Image(
                 painter = painterResource(R.drawable.pantallas),
                 contentDescription = stringResource(R.string.desc_mapa_pantallas),
