@@ -47,38 +47,38 @@ fun AboutScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier.padding(16.dp)
         ) {
-            // Título de la pantalla
+
             Text(
                 text = "Acerca de la aplicación",
-                style = MaterialTheme.typography.headlineMedium,  // Usando headlineMedium
+                style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // Descripción de la aplicación
+
             Text(
                 text = "Esta es una aplicación de ejemplo para gestionar productos. Permite agregar, editar y eliminar productos de un inventario.",
-                style = MaterialTheme.typography.bodyLarge,  // Usando bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // Información del desarrollador
+
             Text(
                 text = "Desarrollado por: Alumnos de la UAA",
-                style = MaterialTheme.typography.bodyMedium,  // Usando bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            // Información de contacto para soporte
+
             Text(
                 text = "Soporte: soporte@miapp.com",
-                style = MaterialTheme.typography.bodyMedium,  // Usando bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // Versión de la aplicación
+
             Text(
                 text = "Versión 1.0",
-                style = MaterialTheme.typography.bodySmall,  // Usando bodySmall
+                style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }
