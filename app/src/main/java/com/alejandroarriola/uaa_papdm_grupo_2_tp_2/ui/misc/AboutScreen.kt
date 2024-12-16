@@ -56,7 +56,7 @@ fun AboutScreen(
 
 
             Text(
-                text = "Esta es una aplicación de ejemplo para gestionar productos. Permite agregar, editar y eliminar productos de un inventario.",
+                text = "Esta es una aplicación para gestionar productos. Permite agregar, editar y eliminar productos de un inventario.",
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
