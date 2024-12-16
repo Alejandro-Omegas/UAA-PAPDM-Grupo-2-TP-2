@@ -12,19 +12,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
-import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
-
-object AboutDestino: NavDestino {
-    override val ruta = "about"
-    override val titulo = R.string.about
-}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -48,18 +44,50 @@ fun AboutScreen(
         }
     ) {
         Column(
-            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
-            modifier = modifier
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier.padding(16.dp)
         ) {
-            Text(text = "About Screen")
-            Text(text = "Version 1.0")
+            // Título de la pantalla
+            Text(
+                text = "Acerca de la aplicación",
+                style = MaterialTheme.typography.headlineMedium,  // Usando headlineMedium
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            // Descripción de la aplicación
+            Text(
+                text = "Esta es una aplicación de ejemplo para gestionar productos. Permite agregar, editar y eliminar productos de un inventario.",
+                style = MaterialTheme.typography.bodyLarge,  // Usando bodyLarge
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            // Información del desarrollador
+            Text(
+                text = "Desarrollado por: Alumnos de la UAA",
+                style = MaterialTheme.typography.bodyMedium,  // Usando bodyMedium
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            // Información de contacto para soporte
+            Text(
+                text = "Soporte: soporte@miapp.com",
+                style = MaterialTheme.typography.bodyMedium,  // Usando bodyMedium
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            // Versión de la aplicación
+            Text(
+                text = "Versión 1.0",
+                style = MaterialTheme.typography.bodySmall,  // Usando bodySmall
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun AboutScreenPreview() {
+private fun AboutScreenPreview() {
     val navController: NavHostController = rememberNavController()
     AboutScreen(navReturnHome = { navController.popBackStack() })
 }
