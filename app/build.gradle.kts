@@ -80,6 +80,7 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.0.0")
 //Room
     implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
+    implementation(libs.androidx.ui.text.google.fonts)
     ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
     implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
     //implementation(project(":navigation"))
