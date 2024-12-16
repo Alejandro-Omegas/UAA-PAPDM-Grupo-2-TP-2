@@ -1,5 +1,7 @@
 package com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock
 
+import EditarProductoViewModel
+import ProductoUiState
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -24,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
-import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.navigation.NavDestino
 
 object EditarProductoDestino: NavDestino {
     override val ruta: String
@@ -40,8 +43,11 @@ object EditarProductoDestino: NavDestino {
 @Composable
 fun EditarProductoScreen(
     modifier: Modifier = Modifier,
-    navUp: () -> Unit
+    navUp: () -> Unit,
+    viewModel: EditarProductoViewModel = viewModel
 ) {
+    val uiState = viewModel.uiState.collectAsState().value
+
     Scaffold(
         topBar = {
             TopBarStock(
@@ -52,7 +58,17 @@ fun EditarProductoScreen(
         }
     ) { innerPadding ->
         CuerpoEditarProducto(
-            onProductoUpdate = {},
+            uiState = uiState,
+            onNombreChange = viewModel::onNombreChange,
+            onPrecioChange = viewModel::onPrecioChange,
+            onCantidadChange = viewModel::onCantidadChange,
+            onDetalleChange = viewModel::onDetalleChange,
+            onProductoUpdate = {
+                viewModel.actualizarProducto {
+                    // Navegar hacia atrás o mostrar un mensaje de éxito
+                    navUp()
+                }
+            },
             modifier = Modifier
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
@@ -67,6 +83,11 @@ fun EditarProductoScreen(
 
 @Composable
 fun CuerpoEditarProducto(
+    uiState: ProductoUiState,
+    onNombreChange: (String) -> Unit,
+    onPrecioChange: (String) -> Unit,
+    onCantidadChange: (String) -> Unit,
+    onDetalleChange: (String) -> Unit,
     onProductoUpdate: () -> Unit,
     modifier: Modifier = Modifier,
     innerPadding: PaddingValues = PaddingValues(0.dp)
@@ -75,33 +96,31 @@ fun CuerpoEditarProducto(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
         modifier = modifier
             .padding(dimensionResource(id = R.dimen.padding_medium))
-            //    .verticalScroll(rememberScrollState()) //crashea si esto esta activo
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TextField(label = {
-            Text("Producto") },
-            value = "",
-            onValueChange = { }
+        TextField(
+            label = { Text("Producto") },
+            value = uiState.nombre,
+            onValueChange = onNombreChange
         )
-        TextField(label = {
-            Text("Precio") },
-            value = "",
-            onValueChange = { }
+        TextField(
+            label = { Text("Precio") },
+            value = uiState.precio,
+            onValueChange = onPrecioChange
         )
-        TextField(label = {
-            Text("Cantidad") },
-            value = "",
-            onValueChange = { }
+        TextField(
+            label = { Text("Cantidad") },
+            value = uiState.cantidad,
+            onValueChange = onCantidadChange
         )
-        TextField(label = {
-            Text("Detalle") },
-            value = "",
-            onValueChange = { }
+        TextField(
+            label = { Text("Detalle") },
+            value = uiState.detalle,
+            onValueChange = onDetalleChange
         )
-
         Button(
-            onClick = { /*TODO:invocar update del VM*/}
+            onClick = onProductoUpdate
         ) {
             Text("Actualizar")
         }
