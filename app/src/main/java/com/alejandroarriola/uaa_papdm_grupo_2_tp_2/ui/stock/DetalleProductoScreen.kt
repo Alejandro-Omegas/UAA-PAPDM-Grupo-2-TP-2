@@ -196,14 +196,25 @@ fun ProductoDetalleCard(
                 dimensionResource(id = R.dimen.padding_medium)
             )
         ) {
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
-            ) {
-                Text(stringResource(R.string.lblProducto))
-                Spacer(modifier = Modifier.weight(1f))
-                Text(text = producto.nombre, fontWeight = FontWeight.Bold)
+            if(producto.nombre.length <= 25) {
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+                ) {
+                    Text(stringResource(R.string.lblProducto))
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(text = producto.nombre, fontWeight = FontWeight.Bold)
+                }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+                ) {
+                    Text(stringResource(R.string.lblProducto))
+                    Text(text = producto.nombre, fontWeight = FontWeight.Bold)
+                }
             }
+
             Row(
                 modifier = Modifier
                     .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))

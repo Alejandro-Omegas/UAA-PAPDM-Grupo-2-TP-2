@@ -17,7 +17,7 @@ class EditarProductoViewModel(
 ) : ViewModel() {
     var productoUiState by mutableStateOf(ProductoUiState())
         private set
-    val longTextoCorto = 25
+    val longTextoCorto = 50
     val LongTextoLargo = 250
     val longCantidad = 7
     val longPrecio = 12
