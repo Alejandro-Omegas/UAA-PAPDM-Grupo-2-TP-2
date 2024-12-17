@@ -15,8 +15,9 @@ class AgregarProductoViewModel(private val stockRepository: StockRepository) : V
         private set
     val longTextoCorto = 50
     val LongTextoLargo = 250
-    val longCantidad = 7
+    val longCantidad = 99999999
     val longPrecio = 12
+    val limPrecio = 9999999.99
 
     fun actualizarUiState(productoDetails: ProductoDetalles) {
         productoUiState =
