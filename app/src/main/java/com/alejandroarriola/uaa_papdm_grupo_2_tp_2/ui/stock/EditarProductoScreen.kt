@@ -99,7 +99,9 @@ fun EditarProductoScreen(
                 OutlinedTextField(
                     value = viewModel.productoUiState.productoDetalles.precio,
                     onValueChange = {
-                        if (it.toDoubleOrNull() != null && it.toDouble() <= LimiterRemoval.limPrecio
+                        if (it.toDoubleOrNull() != null
+                            && it.toDouble() >= 0.0
+                            && it.toDouble() <= LimiterRemoval.limPrecio
                             && it.length <= LimiterRemoval.longPrecio) {
                             viewModel.actualizarUiState(
                                 viewModel.productoUiState.productoDetalles.copy(precio = it)
@@ -121,7 +123,9 @@ fun EditarProductoScreen(
                 OutlinedTextField(
                     value = viewModel.productoUiState.productoDetalles.cantidad,
                     onValueChange = {
-                        if (it.toIntOrNull() != null && it.toInt() <= LimiterRemoval.longCantidad) {
+                        if (it.toIntOrNull() != null
+                            && it.toInt() >= 0
+                            && it.toInt() <= LimiterRemoval.longCantidad) {
                             viewModel.actualizarUiState(
                                 viewModel.productoUiState.productoDetalles.copy(cantidad = it)
                             )

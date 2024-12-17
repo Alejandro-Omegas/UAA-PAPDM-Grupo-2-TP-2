@@ -94,7 +94,10 @@ fun AgregarProductoScreen(
             OutlinedTextField(
                 value = viewModel.productoUiState.productoDetalles.precio,
                 onValueChange = {
-                    if(it.toDoubleOrNull() != null && it.toDouble() <= LimiterRemoval.limPrecio && it.length <= LimiterRemoval.longPrecio) {
+                    if(it.toDoubleOrNull() != null
+                        && it.toDouble() >= 0.0
+                        && it.toDouble() <= LimiterRemoval.limPrecio
+                        && it.length <= LimiterRemoval.longPrecio) {
                         viewModel.actualizarUiState(viewModel.productoUiState.productoDetalles.copy(precio = it))
                     }},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
@@ -112,7 +115,9 @@ fun AgregarProductoScreen(
             OutlinedTextField(
                 value = viewModel.productoUiState.productoDetalles.cantidad,
                 onValueChange = {
-                    if(it.toIntOrNull() != null && it.toInt() <= LimiterRemoval.longCantidad) {
+                    if(it.toIntOrNull() != null
+                        && it.toInt()>= 0
+                        && it.toInt() <= LimiterRemoval.longCantidad) {
                         viewModel.actualizarUiState(viewModel.productoUiState.productoDetalles.copy(cantidad = it))
                     }},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
