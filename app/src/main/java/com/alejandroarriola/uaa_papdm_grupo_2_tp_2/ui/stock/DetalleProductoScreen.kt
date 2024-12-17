@@ -2,6 +2,8 @@ package com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +13,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -20,6 +25,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -29,8 +35,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.data.Producto
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.AppViewModelProvider
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
 import kotlinx.coroutines.launch
@@ -48,13 +56,12 @@ object DetalleProductoDestino: NavDestino {
 @Composable
 fun DetalleProductoScreen(
     modifier: Modifier = Modifier,
+    navEditarProducto: (Int) -> Unit = {},
     navUp: () -> Unit,
-    navBack: () -> Unit,
-    navEditarProducto: (Int) -> Unit,
     viewModel: DetalleProductoViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    //val uiState = viewModel.uiState.collectAsState() //des-comentar cuando se implemente el VM
     val coroutineScope = rememberCoroutineScope()
+    val uiState = viewModel.uiState.collectAsState()
 
     Scaffold(
         topBar = {
@@ -66,31 +73,34 @@ fun DetalleProductoScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navEditarProducto(0) }, // TODO: valor de prueba. Reemplazr con viewmodel una vez este implementado
+                onClick = { navEditarProducto(uiState.value.productoDetalles.id) },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = stringResource(R.string.desc_navEditarProducto)
+                    contentDescription = stringResource(R.string.desc_btnEditarProducto)
                 )
             }
         }
     ) { innerPadding ->
         CuerpoDetalleProducto(
+            onEliminarProducto = {
+                coroutineScope.launch {
+                    viewModel.eliminarProducto()
+                    navUp()
+                }
+            },
+            onAumentarUno = { viewModel.aumentarUno() },
+            onReducirUno = { viewModel.reducirUno() },
+            uiState = uiState.value,
             modifier = Modifier
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
                     end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
                     top = innerPadding.calculateTopPadding()
                 )
-                .verticalScroll(rememberScrollState()),
-            eliminarProducto = {
-                coroutineScope.launch {
-                   // viewModel.eliminarProducto() //des-comentar cuando se implemente esta funcion en el VM
-                    navBack()
-                }
-            },
+                .verticalScroll(rememberScrollState())
         )
     }
 }
@@ -98,7 +108,10 @@ fun DetalleProductoScreen(
 @Composable
 fun CuerpoDetalleProducto(
     modifier: Modifier = Modifier,
-    eliminarProducto: () -> Unit = {} // funcion para realizar la eliminacion
+    onEliminarProducto: () -> Unit = {},
+    onAumentarUno: () -> Unit = {},
+    onReducirUno: () -> Unit = {},
+    uiState: DetalleProductoUiState
 ) {
     Column(
         modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
@@ -106,43 +119,63 @@ fun CuerpoDetalleProducto(
     ) {
         var clicadoEliminar by rememberSaveable { mutableStateOf(false) }
 
-        ProductoDetalleCard() //TODO: implementar
+        //Card del producto
+        ProductoDetalleCard(
+            modifier = Modifier.fillMaxWidth(),
+            producto = uiState.productoDetalles.toProducto()
+        )
 
-        //TODO agregar botones - y +
+        //Botones - y +
+        Row(
+            horizontalArrangement = Arrangement.Center
+        ){
+            Spacer(modifier = Modifier.weight(2f))
+            OutlinedButton(
+                onClick = onReducirUno,
+                shape = MaterialTheme.shapes.small,
+            ) {
+                Text(text = "-")
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                onClick = onAumentarUno,
+                shape = MaterialTheme.shapes.small,
+            ) {
+                Text(text = "+")
+            }
+            Spacer(modifier = Modifier.weight(2f))
+        }
 
+        //Boton eliminar
         OutlinedButton(
             onClick = { clicadoEliminar = true },
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Eliminar")
+            Text(text = stringResource(R.string.txt_eliminar_bttn))
         }
 
-        // Diálogo de confirmación
-        if (clicadoEliminar) {
+        if(clicadoEliminar) {
             AlertDialog(
                 onDismissRequest = { clicadoEliminar = false },
-                title = { Text("Confirmar Eliminación") },
-                text = { Text("¿Estás seguro de que deseas eliminar este producto?") },
+                title = { Text(stringResource(R.string.mensaje_de_confirmacion)) },
+                text = { Text(stringResource(R.string.pregunta_eliminar_producto)) },
                 modifier = modifier,
-                confirmButton = {
-                    TextButton(onClick = {
-                        clicadoEliminar = false
-                        eliminarProducto()
-                    }) {
-                        Text("Eliminar")
+                dismissButton = {
+                    OutlinedButton(onClick = { clicadoEliminar = false }) {
+                        Text(stringResource(R.string.no))
                     }
                 },
-                dismissButton = {
-                    TextButton(onClick = { clicadoEliminar = false }) {
-                        Text("Cancelar")
+                confirmButton = {
+                    TextButton(onClick = { onEliminarProducto() }) {
+                        Text(stringResource(R.string.si))
                     }
                 }
             )
         }
     }
 }
-    
+
 @Composable
 fun ProductoDetalleCard(
     modifier: Modifier = Modifier,
