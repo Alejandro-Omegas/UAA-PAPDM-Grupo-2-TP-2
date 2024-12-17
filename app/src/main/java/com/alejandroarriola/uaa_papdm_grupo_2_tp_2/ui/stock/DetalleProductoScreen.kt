@@ -145,7 +145,58 @@ fun CuerpoDetalleProducto(
     
 @Composable
 fun ProductoDetalleCard(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    producto: Producto
 ) {
-    //TODO
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(id = R.dimen.padding_medium)),
+            verticalArrangement = Arrangement.spacedBy(
+                dimensionResource(id = R.dimen.padding_medium)
+            )
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+            ) {
+                Text(stringResource(R.string.lblProducto))
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = producto.nombre, fontWeight = FontWeight.Bold)
+            }
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+            ) {
+                Text(stringResource(R.string.lblCantidad))
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = producto.cantidad.toString(), fontWeight = FontWeight.Bold)
+            }
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+            ) {
+                Text(stringResource(R.string.lblPrecio))
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = producto.formatedPrice(), fontWeight = FontWeight.Bold)
+            }
+            if(producto.detalle != null && producto.detalle != "") {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+                ) {
+                    Text(stringResource(R.string.lblDetalle))
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(text = producto.detalle, fontWeight = FontWeight.Bold)
+                }
+            }
+        }
+    }
 }
