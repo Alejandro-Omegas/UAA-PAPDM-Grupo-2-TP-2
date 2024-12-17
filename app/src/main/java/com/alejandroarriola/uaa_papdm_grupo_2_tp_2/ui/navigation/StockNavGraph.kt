@@ -77,7 +77,7 @@ fun StockNavGraph(
             })
         ) {
             EditarProductoScreen(
-                navUp = { navController.navigateUp()),
+                navUp = { navController.navigateUp() },
                 navBack = { navController.popBackStack() }
             )
         }
