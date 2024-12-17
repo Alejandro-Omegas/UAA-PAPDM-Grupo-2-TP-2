@@ -91,7 +91,7 @@ fun DetalleProductoScreen(
                     navUp()
                 }
             },
-            onAumentarUno = { viewModel.aumentarUno() },
+            onAumentarUno = viewModel::aumentarUno,
             onReducirUno = { viewModel.reducirUno() },
             uiState = uiState.value,
             modifier = Modifier
@@ -138,7 +138,11 @@ fun CuerpoDetalleProducto(
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
-                onClick = onAumentarUno,
+                onClick =
+                { if(uiState.productoDetalles.cantidad.toIntOrNull() != null
+                    && uiState.productoDetalles.cantidad.toInt() < 99999999) {
+                    onAumentarUno()
+                }},
                 shape = MaterialTheme.shapes.small,
             ) {
                 Text(text = "+")

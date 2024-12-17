@@ -111,7 +111,7 @@ fun AgregarProductoScreen(
             OutlinedTextField(
                 value = viewModel.productoUiState.productoDetalles.cantidad,
                 onValueChange = {
-                    if(it.toIntOrNull() != null && it.toInt() < viewModel.longCantidad) {
+                    if(it.toIntOrNull() != null && it.toInt() <= viewModel.longCantidad) {
                         viewModel.actualizarUiState(viewModel.productoUiState.productoDetalles.copy(cantidad = it))
                     }},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
