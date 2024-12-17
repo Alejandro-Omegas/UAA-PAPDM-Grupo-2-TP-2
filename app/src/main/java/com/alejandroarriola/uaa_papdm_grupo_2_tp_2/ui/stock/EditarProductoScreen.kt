@@ -1,6 +1,5 @@
 package com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock
 
-import EditarProductoViewModel
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -45,7 +44,7 @@ fun EditarProductoScreen(
     navUp: () -> Unit
 ) {
 
-    val viewModel: EditarProductoViewModel = viewModel()
+
 
     Scaffold(
         topBar = {
@@ -59,7 +58,7 @@ fun EditarProductoScreen(
         CuerpoEditarProducto(
             onProductoUpdate = {
                 // Llama al método correspondiente en el ViewModel para actualizar el producto
-                viewModel.updateProducto()
+
             },
             modifier = Modifier
                 .padding(
