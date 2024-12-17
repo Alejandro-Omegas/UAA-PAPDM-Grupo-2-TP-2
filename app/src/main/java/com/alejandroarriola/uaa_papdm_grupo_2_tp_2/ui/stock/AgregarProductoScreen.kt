@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.AppViewModelProvider
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.misc.LimiterRemoval
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -77,7 +78,7 @@ fun AgregarProductoScreen(
             OutlinedTextField(
                 value = viewModel.productoUiState.productoDetalles.nombre,
                 onValueChange = {
-                    if(it.length <= viewModel.longTextoCorto) {
+                    if(it.length <= LimiterRemoval.longTextoCorto) {
                         viewModel.actualizarUiState(viewModel.productoUiState.productoDetalles.copy(nombre = it))
                     } },
                 label = { Text(stringResource(R.string.nombre_producto_requerido)) },
@@ -93,7 +94,7 @@ fun AgregarProductoScreen(
             OutlinedTextField(
                 value = viewModel.productoUiState.productoDetalles.precio,
                 onValueChange = {
-                    if(it.toDoubleOrNull() != null && it.toDouble() <= viewModel.limPrecio && it.length <= viewModel.longPrecio) {
+                    if(it.toDoubleOrNull() != null && it.toDouble() <= LimiterRemoval.limPrecio && it.length <= LimiterRemoval.longPrecio) {
                         viewModel.actualizarUiState(viewModel.productoUiState.productoDetalles.copy(precio = it))
                     }},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
@@ -111,7 +112,7 @@ fun AgregarProductoScreen(
             OutlinedTextField(
                 value = viewModel.productoUiState.productoDetalles.cantidad,
                 onValueChange = {
-                    if(it.toIntOrNull() != null && it.toInt() <= viewModel.longCantidad) {
+                    if(it.toIntOrNull() != null && it.toInt() <= LimiterRemoval.longCantidad) {
                         viewModel.actualizarUiState(viewModel.productoUiState.productoDetalles.copy(cantidad = it))
                     }},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -128,7 +129,7 @@ fun AgregarProductoScreen(
             OutlinedTextField(
                 value = viewModel.productoUiState.productoDetalles.detalle,
                 onValueChange = {
-                    if(it.length <= viewModel.LongTextoLargo) {
+                    if(it.length <= LimiterRemoval.LongTextoLargo) {
                         viewModel.actualizarUiState(viewModel.productoUiState.productoDetalles.copy(detalle = it))
                     }},
                 label = { Text(stringResource(R.string.detalle_no_requerido)) },

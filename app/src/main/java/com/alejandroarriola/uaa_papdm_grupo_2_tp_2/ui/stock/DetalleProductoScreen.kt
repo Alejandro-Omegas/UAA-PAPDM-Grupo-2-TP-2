@@ -134,7 +134,10 @@ fun CuerpoDetalleProducto(
                 onClick = onReducirUno,
                 shape = MaterialTheme.shapes.small,
             ) {
-                Text(text = "-")
+                Text(
+                    text = "-",
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize
+                )
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -145,7 +148,10 @@ fun CuerpoDetalleProducto(
                 }},
                 shape = MaterialTheme.shapes.small,
             ) {
-                Text(text = "+")
+                Text(
+                    text = "+",
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize
+                )
             }
             Spacer(modifier = Modifier.weight(2f))
         }

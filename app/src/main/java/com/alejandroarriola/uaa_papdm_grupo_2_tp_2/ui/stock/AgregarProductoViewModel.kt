@@ -13,11 +13,6 @@ import java.text.NumberFormat
 class AgregarProductoViewModel(private val stockRepository: StockRepository) : ViewModel() {
     var productoUiState by mutableStateOf(ProductoUiState())
         private set
-    val longTextoCorto = 50
-    val LongTextoLargo = 250
-    val longCantidad = 99999999
-    val longPrecio = 12
-    val limPrecio = 9999999.99
 
     fun actualizarUiState(productoDetails: ProductoDetalles) {
         productoUiState =

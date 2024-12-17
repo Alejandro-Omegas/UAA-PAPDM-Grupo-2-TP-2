@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.AppViewModelProvider
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.misc.LimiterRemoval
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
 import kotlinx.coroutines.launch
 import java.util.Currency
@@ -79,7 +80,7 @@ fun EditarProductoScreen(
                 OutlinedTextField(
                     value = viewModel.productoUiState.productoDetalles.nombre,
                     onValueChange = {
-                        if (it.length <= viewModel.longTextoCorto) {
+                        if (it.length <= LimiterRemoval.longTextoCorto) {
                             viewModel.actualizarUiState(
                                 viewModel.productoUiState.productoDetalles.copy(nombre = it)
                             )
@@ -98,7 +99,8 @@ fun EditarProductoScreen(
                 OutlinedTextField(
                     value = viewModel.productoUiState.productoDetalles.precio,
                     onValueChange = {
-                        if (it.toDoubleOrNull() != null && it.toDouble() <= viewModel.limPrecio && it.length <= viewModel.longPrecio) {
+                        if (it.toDoubleOrNull() != null && it.toDouble() <= LimiterRemoval.limPrecio
+                            && it.length <= LimiterRemoval.longPrecio) {
                             viewModel.actualizarUiState(
                                 viewModel.productoUiState.productoDetalles.copy(precio = it)
                             )
@@ -119,7 +121,7 @@ fun EditarProductoScreen(
                 OutlinedTextField(
                     value = viewModel.productoUiState.productoDetalles.cantidad,
                     onValueChange = {
-                        if (it.toIntOrNull() != null && it.toInt() <= viewModel.longCantidad) {
+                        if (it.toIntOrNull() != null && it.toInt() <= LimiterRemoval.longCantidad) {
                             viewModel.actualizarUiState(
                                 viewModel.productoUiState.productoDetalles.copy(cantidad = it)
                             )
@@ -139,7 +141,7 @@ fun EditarProductoScreen(
                 OutlinedTextField(
                     value = viewModel.productoUiState.productoDetalles.detalle,
                     onValueChange = {
-                        if (it.length <= viewModel.LongTextoLargo) {
+                        if (it.length <= LimiterRemoval.LongTextoLargo) {
                             viewModel.actualizarUiState(
                                 viewModel.productoUiState.productoDetalles.copy(detalle = it)
                             )
