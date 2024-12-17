@@ -66,7 +66,6 @@ fun StockNavGraph(
         ) {
             DetalleProductoScreen(
                 navUp = { navController.navigateUp() },
-                navBack = { navController.popBackStack() },
                 navEditarProducto = { navController.navigate("${EditarProductoDestino.ruta}/${it}") }
             )
         }
