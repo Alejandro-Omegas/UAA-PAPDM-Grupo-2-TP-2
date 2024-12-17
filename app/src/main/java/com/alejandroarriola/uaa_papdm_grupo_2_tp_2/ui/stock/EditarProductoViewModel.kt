@@ -1,55 +1,52 @@
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+package com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
+import androidx.lifecycle.viewModelScope
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.data.StockRepository
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
-
-class DetalleProductoViewModel(
+class EditarProductoViewModel(
     savedStateHandle: SavedStateHandle,
-    private val stockViewModel: ListaStockViewModel
+    private val stockRepository: StockRepository
 ) : ViewModel() {
-    private val productoId: Int = savedStateHandle[DetalleProductoDestino.idProductoArg]?.toInt() ?: 0
+    var productoUiState by mutableStateOf(ProductoUiState())
+        private set
+    val longTextoCorto = 25
+    val LongTextoLargo = 250
+    val longCantidad = 7
+    val longPrecio = 12
 
-    private val _uiState = MutableStateFlow(ProductoUiState())
-    val uiState: StateFlow<ProductoUiState> = _uiState
+    private val productoId: Int = checkNotNull(savedStateHandle[DetalleProductoDestino.idProductoArg])
 
     init {
-        cargarProducto()
-    }
-
-    private fun cargarProducto() {
-        val producto = stockViewModel.obtenerProductoPorId(productoId)
-        _uiState.update { currentState ->
-            currentState.copy(
-                nombre = producto?.nombre ?: "",
-                descripcion = producto?.descripcion ?: "",
-                precio = producto?.precio ?: 0.0
-            )
+        viewModelScope.launch {
+            productoUiState = stockRepository.obtenerStockPorId(productoId)
+                .filterNotNull()
+                .first()
+                .toProductoUiState(true)
         }
     }
 
-    suspend fun eliminarProducto() {
-        try {
-            stockViewModel.eliminarProducto(productoId)
-            // Aquí podrías actualizar el estado si deseas mostrar un mensaje de éxito
-        } catch (e: Exception) {
-            // Manejo de errores, si el proceso de eliminación falla
-            _uiState.update { currentState ->
-                currentState.copy(
-                    mensajeError = "Error al eliminar el producto: ${e.message}"
-                )
-            }
+    suspend fun actualizarProducto() {
+        if (validarEntrada(productoUiState.productoDetalles)) {
+            stockRepository.actualizarStock(productoUiState.productoDetalles.toProducto())
         }
+    }
+
+    private fun validarEntrada(uiState: ProductoDetalles = productoUiState.productoDetalles): Boolean {
+        return with(uiState) {
+            nombre.isNotBlank() && precio.isNotBlank() && cantidad.isNotBlank()
+        }
+    }
+
+    fun actualizarUiState(productoDetalles: ProductoDetalles) {
+        productoUiState =
+            ProductoUiState(productoDetalles = productoDetalles, isEntryValid = validarEntrada(productoDetalles))
     }
 }
-
-data class ProductoUiState(
-    val nombre: String = "",
-    val descripcion: String = "",
-    val precio: Double = 0.0,
-    val mensajeError: String? = null // Nuevo campo para manejar mensajes de error
-)
