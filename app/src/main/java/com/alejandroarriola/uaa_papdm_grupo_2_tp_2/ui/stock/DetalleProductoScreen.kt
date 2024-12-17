@@ -40,6 +40,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.R
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.data.Producto
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.AppViewModelProvider
+import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.misc.LimiterRemoval
 import com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.navigation.NavDestino
 import kotlinx.coroutines.launch
 
@@ -143,7 +144,7 @@ fun CuerpoDetalleProducto(
             Button(
                 onClick =
                 { if(uiState.productoDetalles.cantidad.toIntOrNull() != null
-                    && uiState.productoDetalles.cantidad.toInt() < 99999999) {
+                    && uiState.productoDetalles.cantidad.toInt() < LimiterRemoval.longCantidad) {
                     onAumentarUno()
                 }},
                 shape = MaterialTheme.shapes.small,
