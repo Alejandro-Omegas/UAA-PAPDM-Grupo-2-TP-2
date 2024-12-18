@@ -1,5 +1,6 @@
 package com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -39,7 +40,11 @@ class AgregarProductoViewModel(private val stockRepository: StockRepository) : V
              // llama al repositorio para agregar el producto
     //viewModelScope.launch para realizar la operación de base de datos, sin bloquear la UI
             viewModelScope.launch {
-                stockRepository.agregarStock(producto)
+                try {
+                    stockRepository.agregarStock(producto)
+                } catch (e: Exception) {
+                    Log.e("Error al agregar producto", e.toString(), e)
+                }
             }
         }
     }

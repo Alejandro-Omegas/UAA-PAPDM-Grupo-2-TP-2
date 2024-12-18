@@ -1,5 +1,6 @@
 package com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -22,16 +23,24 @@ class EditarProductoViewModel(
 
     init {
         viewModelScope.launch {
-            productoUiState = stockRepository.obtenerStockPorId(productoId)
-                .filterNotNull()
-                .first()
-                .toProductoUiState(true)
+            try{
+                productoUiState = stockRepository.obtenerStockPorId(productoId)
+                    .filterNotNull()
+                    .first()
+                    .toProductoUiState(true)
+            } catch (e: Exception) {
+                Log.e("Error al obtener el producto en EditarProductoViewModel", e.toString(), e)
+            }
         }
     }
 
     suspend fun actualizarProducto() {
         if (validarEntrada(productoUiState.productoDetalles)) {
-            stockRepository.actualizarStock(productoUiState.productoDetalles.toProducto())
+            try{
+                stockRepository.actualizarStock(productoUiState.productoDetalles.toProducto())
+            } catch (e: Exception) {
+                Log.e("Error al actualizar el producto en EditarProductoViewModel", e.toString(), e)
+            }
         }
     }
 

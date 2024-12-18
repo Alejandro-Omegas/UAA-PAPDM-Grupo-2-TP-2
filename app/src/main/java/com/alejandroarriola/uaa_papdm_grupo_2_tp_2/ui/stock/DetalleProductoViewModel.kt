@@ -1,5 +1,6 @@
 package com.alejandroarriola.uaa_papdm_grupo_2_tp_2.ui.stock
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,7 +35,11 @@ class DetalleProductoViewModel(
 
     //funciones
     suspend fun eliminarProducto() {
-        stockRepository.eliminarStock(uiState.value.productoDetalles.toProducto())
+        try {
+            stockRepository.eliminarStock(uiState.value.productoDetalles.toProducto())
+        } catch (e: Exception) {
+            Log.e("Error al eliminar producto", e.toString(), e)
+        }
     }
 
     fun reducirUno() {
@@ -42,7 +47,11 @@ class DetalleProductoViewModel(
             val productoActual = uiState.value.productoDetalles.toProducto()
 
             if(productoActual.cantidad > 0) {
-                stockRepository.actualizarStock(productoActual.copy(cantidad = productoActual.cantidad - 1))
+                try {
+                    stockRepository.actualizarStock(productoActual.copy(cantidad = productoActual.cantidad - 1))
+                } catch (e: Exception) {
+                    Log.e("Error al reducir cantidad", e.toString(), e)
+                }
             }
         }
     }
@@ -52,7 +61,11 @@ class DetalleProductoViewModel(
             val productoActual = uiState.value.productoDetalles.toProducto()
 
             if(productoActual.cantidad < 2147483647) { //max Int value
-                stockRepository.actualizarStock(productoActual.copy(cantidad = productoActual.cantidad + 1))
+                try {
+                    stockRepository.actualizarStock(productoActual.copy(cantidad = productoActual.cantidad + 1))
+                } catch (e: Exception) {
+                    Log.e("Error al aumentar cantidad", e.toString(), e)
+                }
             }
         }
     }
